@@ -1,18 +1,21 @@
-# Day 01 – Linux Log Monitoring
+# Day 02 – Automated Backup Script
 
 ## Objective
-Monitor Linux system logs and extract recent entries, errors, and warnings.
+Automate the backup of important directories using a Bash script.
+
+## What the Script Does
+- Takes backup of a specified directory
+- Compresses the backup using tar
+- Adds timestamp to each backup
+- Stores backups in a dedicated folder
 
 ## Tools Used
 - Linux
 - Bash
-- grep
-- tail
-
-## Files
-- log_monitor.sh
+- tar
+- cron
 
 ## How to Run
 ```bash
-chmod +x log_monitor.sh
-./log_monitor.sh
+chmod +x backup.sh
+./backup.sh
