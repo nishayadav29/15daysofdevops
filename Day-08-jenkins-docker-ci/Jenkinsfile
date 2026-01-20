@@ -1,0 +1,10 @@
+stage('Run Container') {
+    steps {
+        sh '''
+        docker stop day08-ci || true
+        docker rm day08-ci || true
+        docker run -d --network host --name day08-ci day08-jenkins-app
+        '''
+    }
+}
+
