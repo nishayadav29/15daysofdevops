@@ -2,15 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                echo 'Repository already cloned by Jenkins'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh '''
+                cd Day-08-jenkins-docker-ci
                 docker build -t day08-jenkins-app .
                 '''
             }
@@ -27,3 +22,4 @@ pipeline {
         }
     }
 }
+
