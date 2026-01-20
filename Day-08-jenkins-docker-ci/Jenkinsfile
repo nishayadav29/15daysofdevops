@@ -1,10 +1,29 @@
-stage('Run Container') {
-    steps {
-        sh '''
-        docker stop day08-ci || true
-        docker rm day08-ci || true
-        docker run -d --network host --name day08-ci day08-jenkins-app
-        '''
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                echo 'Repository already cloned by Jenkins'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                docker build -t day08-jenkins-app .
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                docker stop day08-ci || true
+                docker rm day08-ci || true
+                docker run -d --network host --name day08-ci day08-jenkins-app
+                '''
+            }
+        }
     }
 }
-
