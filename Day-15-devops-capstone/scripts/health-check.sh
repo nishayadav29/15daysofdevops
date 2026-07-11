@@ -7,16 +7,23 @@ echo "        APPLICATION HEALTH CHECK"
 echo "========================================="
 echo
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+for i in {1..10}
+do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
 
-if [ "$STATUS" -eq 200 ]; then
-    echo "Application Status : RUNNING"
-    echo "HTTP Status Code  : $STATUS"
-    echo "Health Check      : PASSED"
-    exit 0
-else
-    echo "Application Status : DOWN"
-    echo "HTTP Status Code  : $STATUS"
-    echo "Health Check      : FAILED"
-    exit 1
-fi
+    if [ "$STATUS" -eq 200 ]; then
+        echo "Application Status : RUNNING"
+        echo "HTTP Status Code  : $STATUS"
+        echo "Health Check      : PASSED"
+        exit 0
+    fi
+
+    echo "Waiting for application... ($i/10)"
+    sleep 2
+done
+
+echo "Application Status : DOWN"
+echo "HTTP Status Code  : $STATUS"
+echo "Health Check      : FAILED"
+
+exit 1
