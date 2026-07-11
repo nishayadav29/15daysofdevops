@@ -24,11 +24,14 @@ resource "aws_key_pair" "day12_key" {
   public_key = file("/home/nisha/.ssh/day12-terraform-key.pub")
 }
 resource "aws_sns_topic" "cloudwatch_alerts" {
-  name = "day12-cloudwatch-alerts"
+  name = "${local.project_name}-ec2-cpu-alarm"
 
-  tags = {
-    Name = "day12-cloudwatch-alerts"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.project_name}-cloudwatch-alerts"
+    }
+  )
 }
 resource "aws_sns_topic_subscription" "email_notification" {
   topic_arn = aws_sns_topic.cloudwatch_alerts.arn
@@ -60,7 +63,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   }
 }
 resource "aws_security_group" "devops_sg" {
-  name        = "day12-cloudwatch-sg"
+  name        = "${local.project_name}-cloudwatch-sg"
   description = "Security group for Day 12 EC2 instance"
 
   ingress {
@@ -86,9 +89,12 @@ resource "aws_security_group" "devops_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "day12-cloudwatch-sg"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.project_name}-cloudwatch-sg"
+    }
+  )
 }
 
 resource "aws_instance" "day12_ec2" {
@@ -100,7 +106,10 @@ resource "aws_instance" "day12_ec2" {
 
   monitoring = true
 
-  tags = {
-    Name = "day12-cloudwatch-ec2"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.project_name}-cloudwatch-ec2"
+    }
+  )
 }
