@@ -1,0 +1,57 @@
+# ----------------------------
+# Terraform
+# ----------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ----------------------------
+# Terraform Variables (Secrets)
+# ----------------------------
+*.auto.tfvars
+terraform.tfvars
+
+# ----------------------------
+# AWS Credentials
+# ----------------------------
+.aws/
+credentials
+config
+
+# ----------------------------
+# Environment Files
+# ----------------------------
+.env
+.env.*
+*.env
+
+# ----------------------------
+# SSH Keys
+# ----------------------------
+*.pem
+*.ppk
+id_rsa
+id_rsa.pub
+
+# ----------------------------
+# Editor
+# ----------------------------
+.vscode/
+.idea/
+
+# ----------------------------
+# OS Files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
