@@ -13,22 +13,28 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker Image...'
-                sh 'docker build -t day15-capstone .'
+                dir('Day-15-devops-capstone') {
+                    echo 'Building Docker Image...'
+                    sh 'docker build -t day15-capstone .'
+                }
             }
         }
 
         stage('Deploy Application') {
             steps {
-                echo 'Deploying Application...'
-                sh './scripts/deploy.sh'
+                dir('Day-15-devops-capstone') {
+                    echo 'Deploying Application...'
+                    sh './scripts/deploy.sh'
+                }
             }
         }
 
         stage('Health Check') {
             steps {
-                echo 'Running Health Check...'
-                sh './scripts/health-check.sh'
+                dir('Day-15-devops-capstone') {
+                    echo 'Running Health Check...'
+                    sh './scripts/health-check.sh'
+                }
             }
         }
 
