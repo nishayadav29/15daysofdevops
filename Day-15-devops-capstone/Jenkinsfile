@@ -1,0 +1,49 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker Image...'
+                sh 'docker build -t day15-capstone .'
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                echo 'Deploying Application...'
+                sh './scripts/deploy.sh'
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                echo 'Running Health Check...'
+                sh './scripts/health-check.sh'
+            }
+        }
+
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+
+    }
+
+}
