@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="http://localhost:8080"
+URL="http://day15-container"
 
 echo "========================================="
 echo "        APPLICATION HEALTH CHECK"

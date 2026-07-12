@@ -18,6 +18,7 @@ echo "Starting new container..."
 
 docker run -d \
 --name $CONTAINER_NAME \
+--network day15-network \
 -p 8080:80 \
 $IMAGE_NAME
 
